@@ -1,0 +1,940 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Těch 1000 piv 🍺</title>
+    
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "vctakvnghi");
+    </script>
+
+    <script
+    src="https://beamanalytics.b-cdn.net/beam.min.js"
+    data-token="e1916a77-6d7c-47ab-9b39-4384af84fb76"
+    async
+    >
+    </script>
+      <!-- GA4 Server-Side Tracking -->
+      <!-- Client-side gtag.js removed - doesn't work in Apps Script iframes -->
+      <!-- GA4 tracking now handled by backend kod.gs via Measurement Protocol API -->
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+      
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      
+      .header {
+        text-align: center;
+        color: white;
+        margin-bottom: 30px;
+        padding: 30px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+      }
+        /* Ikona uhlíků s glowing efektem */
+      .ember-icon {
+        width: 28px;
+        height: 28px;
+        vertical-align: middle;
+        margin: 0 6px;
+        display: inline-block;
+  
+        /* Glowing effect - oranžovo-červené světlo */
+        filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.9))
+          drop-shadow(0 0 18px rgba(255, 69, 0, 0.7))
+          drop-shadow(0 0 25px rgba(255, 0, 0, 0.5));
+  
+        /* Animace pulzování */
+        animation: ember-glow 2s ease-in-out infinite;
+      }
+
+      @keyframes ember-glow {
+        0%, 100% {
+          filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.9))
+            drop-shadow(0 0 18px rgba(255, 69, 0, 0.7))
+            drop-shadow(0 0 25px rgba(255, 0, 0, 0.5));
+        }
+        50% {
+          filter: drop-shadow(0 0 15px rgba(255, 140, 0, 1))
+            drop-shadow(0 0 25px rgba(255, 69, 0, 0.9))
+            drop-shadow(0 0 35px rgba(255, 0, 0, 0.7));
+      }
+      }
+
+      .title {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      
+      .subtitle {
+        font-size: 18px;
+        opacity: 0.95;
+        margin-top: 10px;
+      }
+      
+      /* Ikona uhlíků s glowing efektem */
+      .ember-icon {
+        width: 28px;
+        height: 28px;
+        vertical-align: middle;
+        margin: 0 6px;
+        display: inline-block;
+        
+        /* Glowing effect - oranžovo-červené světlo */
+        filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.9))
+                drop-shadow(0 0 18px rgba(255, 69, 0, 0.7))
+                drop-shadow(0 0 25px rgba(255, 0, 0, 0.5));
+        
+        /* Animace pulzování */
+        animation: ember-glow 2s ease-in-out infinite;
+      }
+      
+      @keyframes ember-glow {
+        0%, 100% {
+          filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.9))
+                  drop-shadow(0 0 18px rgba(255, 69, 0, 0.7))
+                  drop-shadow(0 0 25px rgba(255, 0, 0, 0.5));
+        }
+        50% {
+          filter: drop-shadow(0 0 15px rgba(255, 140, 0, 1))
+                  drop-shadow(0 0 25px rgba(255, 69, 0, 0.9))
+                  drop-shadow(0 0 35px rgba(255, 0, 0, 0.7));
+        }
+      }
+      
+      .beer-button {
+        width: 100%;
+        padding: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #FF6B35, #F7931E);
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        margin-bottom: 30px;
+      }
+      
+      .beer-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+      
+      .beer-button:active {
+        transform: translateY(0);
+      }
+      
+      .beer-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      
+      /* Výběr typu piva */
+      .beer-selector {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      
+      .beer-type {
+        padding: 15px 10px;
+        background: white;
+        border: 3px solid transparent;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      .beer-type:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      
+      .beer-type.active {
+        border-color: #FF6B35;
+        background: linear-gradient(135deg, #FFF5F0, #FFE8DC);
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+      }
+      
+      .beer-type-name {
+        font-weight: bold;
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 5px;
+      }
+      
+      .beer-type-desc {
+        font-size: 11px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+      
+      .beer-type-price {
+        font-size: 18px;
+        font-weight: bold;
+        color: #FF6B35;
+      }
+      
+      @media (max-width: 600px) {
+        .beer-selector {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      
+      .message {
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+        display: none;
+      }
+      
+      .message.success {
+        background: #d4edda;
+        color: #155724;
+        border: 2px solid #c3e6cb;
+      }
+      
+      .message.error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 2px solid #f5c6cb;
+      }
+      
+      .stats-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      
+      .stat-item {
+        text-align: center;
+        padding: 15px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 12px;
+        transition: transform 0.2s;
+      }
+      
+      .stat-item:hover {
+        transform: translateY(-3px);
+      }
+      
+      .stat-number {
+        font-size: 32px;
+        font-weight: bold;
+        color: #FF6B35;
+        margin-bottom: 5px;
+      }
+      
+      .stat-label {
+        font-size: 13px;
+        color: #666;
+        font-weight: 500;
+      }
+      
+      h3 {
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 22px;
+      }
+      
+      @media (max-width: 600px) {
+        .title {
+          font-size: 36px;
+        }
+        
+        .subtitle {
+          font-size: 16px;
+        }
+        
+        .beer-button {
+          font-size: 20px;
+          padding: 18px;
+        }
+        
+        .stats-grid {
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+          gap: 10px;
+        }
+        
+        .stat-number {
+          font-size: 28px;
+        }
+        
+        .stat-label {
+          font-size: 12px;
+        }
+        
+        .ember-icon {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- HLAVIČKA -->
+      <div class="header">
+        <div class="title">🍺 Těch 1000 piv 🍺</div>
+        <p class="subtitle">
+          Dej si pivko s ☺️ Ondrex Ember  <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPCEtLSBIb3Jrw70gdWhsw61rIC0tPgogIDxjaXJjbGUgY3g9IjMyIiBjeT0iNDUiIHI9IjE1IiBmaWxsPSIjRkY0NTAwIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSI0NSIgcj0iMTIiIGZpbGw9IiNGRjY5MDAiLz4KICA8Y2lyY2xlIGN4PSIzMiIgY3k9IjQ1IiByPSI4IiBmaWxsPSIjRkY4QzAwIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSI0NSIgcj0iNCIgZmlsbD0iI0ZGQUIwMCIvPgogIAogIDwhLS0gU3TFmWVkbsOtIHVobMOtayAtLT4KICA8Y2lyY2xlIGN4PSIyMiIgY3k9IjM1IiByPSIxMCIgZmlsbD0iI0ZGNjkwMCIvPgogIDxjaXJjbGUgY3g9IjIyIiBjeT0iMzUiIHI9IjciIGZpbGw9IiNGRjhDMDAiLz4KICA8Y2lyY2xlIGN4PSIyMiIgY3k9IjM1IiByPSI0IiBmaWxsPSIjRkZBQjAwIi8+CiAgCiAgPGNpcmNsZSBjeD0iNDIiIGN5PSIzOCIgcj0iOCIgZmlsbD0iI0ZGNjkwMCIvPgogIDxjaXJjbGUgY3g9IjQyIiBjeT0iMzgiIHI9IjUiIGZpbGw9IiNGRjhDMDAiLz4KICAKICA8IS0tIE1hbMOpIHVobMOta3kgbmEgb2tyYWrDrWNoIC0tPgogIDxjaXJjbGUgY3g9IjE1IiBjeT0iNDgiIHI9IjYiIGZpbGw9IiNGRjhDMDAiLz4KICA8Y2lyY2xlIGN4PSIxNSIgY3k9IjQ4IiByPSIzIiBmaWxsPSIjRkZBQjAwIi8+CiAgCiAgPGNpcmNsZSBjeD0iNDgiIGN5PSI1MCIgcj0iNSIgZmlsbD0iI0ZGOEMwMCIvPgogIDxjaXJjbGUgY3g9IjQ4IiBjeT0iNTAiIHI9IjIiIGZpbGw9IiNGRkFCMDAiLz4KPC9zdmc+" 
+       class="ember-icon" 
+       alt="🔥">
+          Ember
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPCEtLSBIb3Jrw70gdWhsw61rIC0tPgogIDxjaXJjbGUgY3g9IjMyIiBjeT0iNDUiIHI9IjE1IiBmaWxsPSIjRkY0NTAwIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSI0NSIgcj0iMTIiIGZpbGw9IiNGRjY5MDAiLz4KICA8Y2lyY2xlIGN4PSIzMiIgY3k9IjQ1IiByPSI4IiBmaWxsPSIjRkY4QzAwIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSI0NSIgcj0iNCIgZmlsbD0iI0ZGQUIwMCIvPgogIAogIDwhLS0gU3TFmWVkbsOtIHVobMOtayAtLT4KICA8Y2lyY2xlIGN4PSIyMiIgY3k9IjM1IiByPSIxMCIgZmlsbD0iI0ZGNjkwMCIvPgogIDxjaXJjbGUgY3g9IjIyIiBjeT0iMzUiIHI9IjciIGZpbGw9IiNGRjhDMDAiLz4KICA8Y2lyY2xlIGN4PSIyMiIgY3k9IjM1IiByPSI0IiBmaWxsPSIjRkZBQjAwIi8+CiAgCiAgPGNpcmNsZSBjeD0iNDIiIGN5PSIzOCIgcj0iOCIgZmlsbD0iI0ZGNjkwMCIvPgogIDxjaXJjbGUgY3g9IjQyIiBjeT0iMzgiIHI9IjUiIGZpbGw9IiNGRjhDMDAiLz4KICAKICA8IS0tIE1hbMOpIHVobMOta3kgbmEgb2tyYWrDrWNoIC0tPgogIDxjaXJjbGUgY3g9IjE1IiBjeT0iNDgiIHI9IjYiIGZpbGw9IiNGRjhDMDAiLz4KICA8Y2lyY2xlIGN4PSIxNSIgY3k9IjQ4IiByPSIzIiBmaWxsPSIjRkZBQjAwIi8+CiAgCiAgPGNpcmNsZSBjeD0iNDgiIGN5PSI1MCIgcj0iNSIgZmlsbD0iI0ZGOEMwMCIvPgogIDxjaXJjbGUgY3g9IjQ4IiBjeT0iNTAiIHI9IjIiIGZpbGw9IiNGRkFCMDAiLz4KPC9zdmc+" 
+       class="ember-icon" 
+       alt="🔥"> </p>
+      </div>
+      
+      <!-- VÝBĚR TYPU PIVA -->
+      <div class="beer-selector">
+        <div class="beer-type active" onclick="selectBeerType(14, this)">
+          <div class="beer-type-name">🍺 Desina</div>
+          <div class="beer-type-desc">8-10°</div>
+          <div class="beer-type-price">14 Kč</div>
+        </div>
+        
+        <div class="beer-type" onclick="selectBeerType(30, this)">
+          <div class="beer-type-name">🍻 Ležáček</div>
+          <div class="beer-type-desc">11-12°</div>
+          <div class="beer-type-price">30 Kč</div>
+        </div>
+        
+        <div class="beer-type" onclick="selectBeerType(40, this)">
+          <div class="beer-type-name">⭐ Speciálek</div>
+          <div class="beer-type-desc">12-14°</div>
+          <div class="beer-type-price">40 Kč</div>
+        </div>
+        
+        <div class="beer-type" onclick="selectBeerType(60, this)">
+          <div class="beer-type-name">🎨 Craft</div>
+          <div class="beer-type-desc">Řemeslné</div>
+          <div class="beer-type-price">60 Kč</div>
+        </div>
+      </div>
+      
+      <!-- TLAČÍTKO NA PŘIDÁNÍ PIVA -->
+      <button class="beer-button" onclick="addBeer()">🍺 Přidat pivo</button>
+      
+      <!-- ZPRÁVA -->
+      <div id="message" class="message"></div>
+      
+      <!-- 📊 ZÁKLADNÍ STATISTIKY -->
+      <div class="stats-card">
+        <h3 style="color: #FF6B35;">📊 Statistiky</h3>
+        
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number" id="dnes">0</div>
+            <div class="stat-label">Dnes</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-number" id="vcera">0</div>
+            <div class="stat-label">Včera</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-number" id="poslednich7Dnu">0</div>
+            <div class="stat-label">7 dní</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-number" id="poslednich30Dnu">0</div>
+            <div class="stat-label">30 dní</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-number" id="minulyTyden">0</div>
+            <div class="stat-label">Minulý týden</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-number" id="minulyMesic">0</div>
+            <div class="stat-label">Minulý měsíc</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-number" id="minulyRok">0</div>
+            <div class="stat-label">Minulý rok</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-number" id="posledni3Mesice">0</div>
+            <div class="stat-label">3 měsíce</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-number" id="poslednich365Dnu">0</div>
+            <div class="stat-label">365 dní</div>
+          </div>
+          
+          <div class="stat-item" style="background: linear-gradient(135deg, #FF6B35, #F7931E);">
+            <div class="stat-number" id="celkem" style="color: white;">0</div>
+            <div class="stat-label" style="color: white; font-weight: bold;">CELKEM</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 💰 PROCHLASTANÉ PENÍZE -->
+      <div class="stats-card" style="margin-top: 30px;">
+        <h3 style="margin-bottom: 20px; color: #FF6B35;">💰 Prochlastané peníze</h3>
+        
+        <div class="stats-grid">                        
+          <div class="stat-item">
+            <div class="stat-number" id="utrata3Dny">0</div>
+            <div class="stat-label">3 dny</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-number" id="utrata7Dnu">0</div>
+            <div class="stat-label">7 dní</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-number" id="utrata14Dnu">0</div>
+            <div class="stat-label">14 dní</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-number" id="utrata30Dnu">0</div>
+            <div class="stat-label">30 dní</div>
+          </div>
+          
+          <div class="stat-item" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+            <div class="stat-number" id="utrata365Dnu" style="color: white;">0</div>
+            <div class="stat-label" style="color: white; font-weight: bold;">365 dní</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 📊 STATISTIKY PIVAŘŮ -->
+      <div class="stats-card" style="margin-top: 30px;">
+        <h3 style="margin-bottom: 20px; color: #FF6B35;">👥 Statistiky pivařů</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 12px; color: white; text-align: center;">
+            <div style="font-size: 32px; font-weight: bold;" id="pocetPivaru">0</div>
+            <div style="opacity: 0.9; margin-top: 5px;">Celkem pivařů</div>
+          </div>
+          
+          <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 20px; border-radius: 12px; color: white; text-align: center;">
+            <div style="font-size: 18px; font-weight: bold;" id="posledniBeer">-</div>
+            <div style="opacity: 0.9; margin-top: 5px;">Poslední pivo</div>
+          </div>
+        </div>
+        
+        <!-- TOP 3 PIVAŘI -->
+        <div id="top3Pivari" style="margin-top: 20px;">
+          <h4 style="margin-bottom: 15px; color: #FF6B35;">🏆 TOP 3 Pivaři</h4>
+          <div id="top3List"></div>
+        </div>
+      </div>
+      
+      <!-- 📱 OS BREAKDOWN -->
+      <div class="stats-card" style="margin-top: 30px;">
+        <h3 style="margin-bottom: 20px; color: #FF6B35;">📱 Piva podle operačních systémů</h3>
+        <div id="osBreakdown"></div>
+      </div>
+      
+      <!-- 📈 GRAF POSLEDNÍCH 7 DNÍ -->
+      <div class="stats-card" style="margin-top: 30px;">
+        <h3 style="margin-bottom: 20px; color: #FF6B35;">📈 Posledních 7 dní</h3>
+        <canvas id="beerChart" style="max-height: 300px;"></canvas>
+      </div>
+      
+      <!-- 🌟 SEKCE STŘÍZLIVOSTI -->
+      <div class="stats-card" style="margin-top: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <h3 style="margin-bottom: 20px; color: white;">🌟 Dny střízlivosti</h3>
+        <div style="text-align: center; padding: 20px;">
+          <div style="font-size: 72px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);" id="sobrietyDays">0</div>
+          <div style="font-size: 24px; opacity: 0.95; margin-top: 10px;">dní bez alkoholu</div>
+          
+          <div style="margin-top: 30px;">
+            <button onclick="showResetDialog()" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 12px 30px; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.3s;">
+              🔄 Resetovat střízlivost
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Dialog pro reset střízlivosti -->
+      <div id="resetDialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 30px; border-radius: 15px; max-width: 400px; width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+          <h3 style="margin-bottom: 20px; color: #FF6B35;">🔐 Zadej heslo pro reset</h3>
+          <input type="password" id="resetPassword" placeholder="Heslo..." style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; margin-bottom: 20px;">
+          <div style="display: flex; gap: 10px;">
+            <button onclick="confirmReset()" style="flex: 1; background: #FF6B35; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; cursor: pointer;">
+              ✅ Potvrdit
+            </button>
+            <button onclick="closeResetDialog()" style="flex: 1; background: #ddd; color: #333; border: none; padding: 12px; border-radius: 8px; font-size: 16px; cursor: pointer;">
+              ❌ Zrušit
+            </button>
+          </div>
+          <div id="resetMessage" style="margin-top: 15px; padding: 10px; border-radius: 8px; display: none;"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Chart.js knihovna -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    
+    <script>
+      let beerChart = null;
+      let selectedBeerPrice = 14; // Výchozí cena (Desina)
+      
+      // Výběr typu piva
+      function selectBeerType(price, element) {
+        // Odstranit active ze všech
+        document.querySelectorAll('.beer-type').forEach(function(el) {
+          el.classList.remove('active');
+        });
+        
+        // Přidat active na vybraný
+        element.classList.add('active');
+        
+        // Nastavit cenu
+        selectedBeerPrice = price;
+        
+        console.log('Vybrána cena piva:', price, 'Kč');
+      }
+      
+      // ═══════════════════════════════════════════════════════════════
+      // 📊 GA4 SERVER-SIDE TRACKING HELPERS
+      // ═══════════════════════════════════════════════════════════════
+      
+      // Získání nebo vytvoření user ID pro GA4
+      function getOrCreateUserId() {
+        let userId = localStorage.getItem('ga4_user_id');
+        if (!userId) {
+          // Vytvoř nový user ID
+          userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+          localStorage.setItem('ga4_user_id', userId);
+        }
+        return userId;
+      }
+      
+      // Helper pro tracking eventů do GA4 (přes backend)
+      function trackGA4Event(eventName, eventParams) {
+        try {
+          const userId = getOrCreateUserId();
+          
+          if (typeof google !== 'undefined' && google.script && google.script.run) {
+            google.script.run
+              .withSuccessHandler(function() {
+                console.log('✓ GA4:', eventName);
+              })
+              .withFailureHandler(function(error) {
+                console.warn('GA4 tracking failed:', error);
+              })
+              .trackEvent(userId, eventName, eventParams || {});
+          }
+        } catch(e) {
+          console.warn('GA4 error:', e);
+        }
+      }
+      
+      // Načtení statistik při startu
+      window.onload = function() {
+        loadStatistics();
+        loadSobrietyDays();
+        
+        // 📊 GA4: Track page view
+        trackGA4Event('page_view', {
+          page_title: document.title,
+          page_location: window.location.href,
+          referrer: document.referrer || 'direct'
+        });
+      };
+      
+      // Načtení dnů střízlivosti
+      function loadSobrietyDays() {
+        google.script.run
+          .withSuccessHandler(function(days) {
+            document.getElementById('sobrietyDays').textContent = days;
+          })
+          .withFailureHandler(function(error) {
+            console.error('Chyba při načítání dnů střízlivosti:', error);
+          })
+          .getSobrietyDays();
+      }
+      
+      // Zobrazení dialogu pro reset
+      function showResetDialog() {
+        document.getElementById('resetDialog').style.display = 'flex';
+        document.getElementById('resetPassword').value = '';
+        document.getElementById('resetMessage').style.display = 'none';
+        
+        // 📊 GA4: Track dialog open
+        trackGA4Event('dialog_opened', {
+          dialog_type: 'sobriety_reset'
+        });
+      }
+      
+      // Zavření dialogu
+      function closeResetDialog() {
+        document.getElementById('resetDialog').style.display = 'none';
+      }
+      
+      // Potvrzení resetu
+      function confirmReset() {
+        const password = document.getElementById('resetPassword').value;
+        const messageDiv = document.getElementById('resetMessage');
+        
+        if (!password) {
+          messageDiv.style.display = 'block';
+          messageDiv.style.background = '#fee';
+          messageDiv.style.color = '#c33';
+          messageDiv.textContent = '⚠️ Zadej heslo!';
+          return;
+        }
+        
+        google.script.run
+          .withSuccessHandler(function(response) {
+            messageDiv.style.display = 'block';
+            if (response.success) {
+              messageDiv.style.background = '#efe';
+              messageDiv.style.color = '#3c3';
+              messageDiv.textContent = response.message;
+              
+              // Aktualizovat počet dnů
+              document.getElementById('sobrietyDays').textContent = response.days;
+              
+              // Zavřít dialog po 2 sekundách
+              setTimeout(closeResetDialog, 2000);
+            } else {
+              messageDiv.style.background = '#fee';
+              messageDiv.style.color = '#c33';
+              messageDiv.textContent = response.message;
+            }
+          })
+          .withFailureHandler(function(error) {
+            messageDiv.style.display = 'block';
+            messageDiv.style.background = '#fee';
+            messageDiv.style.color = '#c33';
+            messageDiv.textContent = '❌ Chyba: ' + error.message;
+          })
+          .resetSobriety(password);
+      }
+      
+      // Detekce zařízení a browseru
+      function getDeviceInfo() {
+        const ua = navigator.userAgent;
+        let device = 'Desktop';
+        let os = 'Unknown';
+        let osVersion = '';
+        let browser = 'Unknown';
+        let browserVersion = '';
+        
+        // Detekce OS
+        if (/Android/i.test(ua)) {
+          os = 'Android';
+          const match = ua.match(/Android\s([\d.]+)/);
+          osVersion = match ? match[1] : '';
+          device = 'Mobile';
+        } else if (/iPhone|iPad|iPod/i.test(ua)) {
+          os = 'iOS';
+          const match = ua.match(/OS\s([\d_]+)/);
+          osVersion = match ? match[1].replace(/_/g, '.') : '';
+          device = /iPad/i.test(ua) ? 'Tablet' : 'Mobile';
+        } else if (/Macintosh|MacIntel|MacPPC|Mac68K/i.test(ua)) {
+          os = 'macOS';
+          const match = ua.match(/Mac OS X\s([\d_]+)/);
+          osVersion = match ? match[1].replace(/_/g, '.') : '';
+        } else if (/Windows/i.test(ua)) {
+          os = 'Windows';
+          if (/Windows NT 10.0/i.test(ua)) osVersion = '10/11';
+          else if (/Windows NT 6.3/i.test(ua)) osVersion = '8.1';
+          else if (/Windows NT 6.2/i.test(ua)) osVersion = '8';
+          else if (/Windows NT 6.1/i.test(ua)) osVersion = '7';
+        } else if (/Linux/i.test(ua)) {
+          os = 'Linux';
+        }
+        
+        // Detekce browseru
+        if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) {
+          browser = 'Chrome';
+          const match = ua.match(/Chrome\/([\d.]+)/);
+          browserVersion = match ? match[1] : '';
+        } else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) {
+          browser = 'Safari';
+          const match = ua.match(/Version\/([\d.]+)/);
+          browserVersion = match ? match[1] : '';
+        } else if (/Firefox/i.test(ua)) {
+          browser = 'Firefox';
+          const match = ua.match(/Firefox\/([\d.]+)/);
+          browserVersion = match ? match[1] : '';
+        } else if (/Edg/i.test(ua)) {
+          browser = 'Edge';
+          const match = ua.match(/Edg\/([\d.]+)/);
+          browserVersion = match ? match[1] : '';
+        }
+        
+        return {
+          device: device,
+          os: os,
+          osVersion: osVersion,
+          browser: browser,
+          browserVersion: browserVersion,
+          userAgent: ua,
+          referrer: document.referrer || 'Direct',
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          language: navigator.language || navigator.userLanguage,
+          screen: screen.width + 'x' + screen.height,
+          orientation: screen.orientation ? screen.orientation.type : 'unknown',
+          touch: 'ontouchstart' in window ? 'Yes' : 'No'
+        };
+      }
+      
+      // Přidání piva
+      function addBeer() {
+        const button = document.querySelector('.beer-button');
+        button.disabled = true;
+        button.textContent = '⏳ Přidávám...';
+        
+        const trackingData = getDeviceInfo();
+        
+        google.script.run
+          .withSuccessHandler(function(response) {
+            if (response.success) {
+              showMessage(response.message, 'success');
+              updateStatistics(response.stats);
+            } else {
+              showMessage(response.message, 'error');
+            }
+            button.disabled = false;
+            button.textContent = '🍺 Přidat pivo';
+          })
+          .withFailureHandler(function(error) {
+            showMessage('Chyba: ' + error.message, 'error');
+            button.disabled = false;
+            button.textContent = '🍺 Přidat pivo';
+          })
+          .addBeer(trackingData, selectedBeerPrice);
+      }
+      
+      // Načtení statistik
+      function loadStatistics() {
+        google.script.run
+          .withSuccessHandler(updateStatistics)
+          .withFailureHandler(function(error) {
+            console.error('Chyba při načítání statistik:', error);
+          })
+          .getStatistics();
+      }
+      
+      // Aktualizace statistik
+      function updateStatistics(stats) {
+        document.getElementById('dnes').textContent = stats.dnes;
+        document.getElementById('vcera').textContent = stats.vcera;
+        document.getElementById('poslednich7Dnu').textContent = stats.poslednich7Dnu;
+        document.getElementById('poslednich30Dnu').textContent = stats.poslednich30Dnu;
+        document.getElementById('minulyTyden').textContent = stats.minulyTyden;
+        document.getElementById('minulyMesic').textContent = stats.minulyMesic;
+        document.getElementById('minulyRok').textContent = stats.minulyRok;
+        document.getElementById('posledni3Mesice').textContent = stats.posledni3Mesice;
+        document.getElementById('poslednich365Dnu').textContent = stats.poslednich365Dnu;
+        document.getElementById('celkem').textContent = stats.celkem;
+        
+        // Nové statistiky
+        document.getElementById('posledniBeer').textContent = stats.posledniBeer;
+        document.getElementById('pocetPivaru').textContent = stats.pocetPivaru;
+        
+        // 💰 Statistiky útraty
+        if (stats.utrata) {
+          document.getElementById('utrata3Dny').textContent = stats.utrata.posledni3Dny + ' Kč';
+          document.getElementById('utrata7Dnu').textContent = stats.utrata.poslednich7Dnu + ' Kč';
+          document.getElementById('utrata14Dnu').textContent = stats.utrata.poslednich14Dnu + ' Kč';
+          document.getElementById('utrata30Dnu').textContent = stats.utrata.poslednich30Dnu + ' Kč';
+          document.getElementById('utrata365Dnu').textContent = stats.utrata.poslednich365Dnu + ' Kč';
+        }
+        
+        // TOP 3 Pivaři
+        updateTop3Pivari(stats.top3Pivari);
+        
+        // OS Breakdown
+        updateOSBreakdown(stats.osBreakdown);
+        
+        // Graf
+        updateChart(stats.graph7Days);
+      }
+      
+      // Aktualizace TOP 3 pivařů
+      function updateTop3Pivari(top3) {
+        const container = document.getElementById('top3List');
+  
+        if (!top3 || top3.length === 0) {
+        container.innerHTML = '<p style="color: #999; text-align: center;">Zatím žádní pivaři</p>';
+        return;
+      }
+  
+      const medals = ['🥇', '🥈', '🥉'];
+  
+      // NOVÉ: mapování OS na ikony
+      const osIcons = {
+        'Android': '🤖',
+        'iOS': '🍎',
+        'macOS': '💻',
+        'Windows': '🍬',
+        'Linux': '🐧',
+        'Unknown': '❓'
+      };
+  
+      let html = '';
+  
+      top3.forEach((pivar, index) => {
+        const shortId = pivar.id.substring(0, 12) + '...';
+        const osIcon = osIcons[pivar.os] || '❓'; // NOVÉ: získat ikonu OS
+    
+        html += `
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f9f9f9; border-radius: 8px; margin-bottom: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 24px;">${medals[index]}</span>
+            <span style="font-family: monospace; font-size: 14px; color: #666;">${shortId}</span>
+            <span style="font-size: 20px;">${osIcon}</span>
+          </div>
+          <div style="font-size: 20px; font-weight: bold; color: #FF6B35;">${pivar.count} 🍺</div>
+          </div>
+        `;
+        });
+  
+      container.innerHTML = html;
+      }
+      
+      // Aktualizace OS Breakdown
+      function updateOSBreakdown(osData) {
+        const container = document.getElementById('osBreakdown');
+        
+        const osIcons = {
+          'Android': '🤖',
+          'iOS': '🍎',
+          'macOS': '💻',
+          'Windows': '🍬',
+          'Linux': '🐧',
+          'Other': '❓'
+        };
+        
+        let html = '';
+        let total = 0;
+        
+        // Počítání celkového počtu
+        for (let os in osData) {
+          total += osData[os];
+        }
+        
+        // Generování HTML
+        for (let os in osData) {
+          const count = osData[os];
+          const percentage = total > 0 ? ((count / total) * 100).toFixed(1) : 0;
+          const icon = osIcons[os] || '❓';
+          
+          html += `
+            <div style="margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span>${icon} ${os}</span>
+                <span style="font-weight: bold;">${count} (${percentage}%)</span>
+              </div>
+              <div style="background: #eee; height: 10px; border-radius: 5px; overflow: hidden;">
+                <div style="background: linear-gradient(90deg, #FF6B35, #F7931E); height: 100%; width: ${percentage}%; transition: width 0.5s;"></div>
+              </div>
+            </div>
+          `;
+        }
+        
+        container.innerHTML = html;
+      }
+      
+      // Aktualizace grafu
+      function updateChart(graphData) {
+        const ctx = document.getElementById('beerChart').getContext('2d');
+        
+        if (beerChart) {
+          beerChart.destroy();
+        }
+        
+        beerChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: graphData.labels,
+            datasets: [{
+              label: 'Počet piv',
+              data: graphData.data,
+              backgroundColor: 'rgba(255, 107, 53, 0.7)',
+              borderColor: 'rgba(255, 107, 53, 1)',
+              borderWidth: 2,
+              borderRadius: 8
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  stepSize: 1
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      // Zobrazení zprávy
+      function showMessage(message, type) {
+        const messageDiv = document.getElementById('message');
+        messageDiv.textContent = message;
+        messageDiv.className = 'message ' + type;
+        messageDiv.style.display = 'block';
+        
+        setTimeout(function() {
+          messageDiv.style.display = 'none';
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
