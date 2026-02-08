@@ -229,6 +229,64 @@
         }
       }
       
+      /* 🔥 PATIČKA */
+.footer {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  padding: 30px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 🔥 EMBER LINK STYLING */
+.footer a {
+  color: #ffb380;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 8px rgba(255, 120, 40, 0.5);
+  position: relative;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.footer a:hover {
+  color: #ffcc99;
+  text-shadow: 0 0 12px rgba(255, 120, 40, 0.9);
+  animation: emberLinkGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes emberLinkGlow {
+  0%, 100% { 
+    text-shadow: 0 0 12px rgba(255, 120, 40, 0.9);
+  }
+  50% { 
+    text-shadow: 0 0 20px rgba(255, 100, 20, 1);
+  }
+}
+
+.footer-info {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  margin-top: 10px;
+}
       .message {
         padding: 15px;
         border-radius: 10px;
@@ -326,6 +384,87 @@
         .ember-icon {
           width: 24px;
           height: 24px;
+        }
+      }
+      
+      /* 🔥 PATIČKA */
+      .footer {
+        margin-top: 50px;
+        padding: 30px 20px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
+      
+      .footer-content {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+      }
+      
+      .footer-links {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .footer-divider {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 14px;
+      }
+      
+      /* 🔥 EMBER LINK STYLING */
+      .footer a {
+        color: #d4a574;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        text-shadow: 0 0 8px rgba(255, 120, 40, 0.3);
+        position: relative;
+        font-size: 15px;
+        font-weight: 500;
+      }
+      
+      .footer a:hover {
+        color: #ff9944;
+        text-shadow: 0 0 12px rgba(255, 120, 40, 0.8);
+        animation: emberLinkGlow 1.5s ease-in-out infinite;
+      }
+      
+      .footer a:active {
+        color: #ff7828;
+      }
+      
+      @keyframes emberLinkGlow {
+        0%, 100% { 
+          text-shadow: 0 0 12px rgba(255, 120, 40, 0.8);
+        }
+        50% { 
+          text-shadow: 0 0 16px rgba(255, 100, 20, 1);
+        }
+      }
+      
+      .footer-info {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 13px;
+        margin-top: 10px;
+      }
+      
+      @media (max-width: 600px) {
+        .footer {
+          margin-top: 30px;
+          padding: 25px 15px;
+        }
+        
+        .footer-links {
+          gap: 15px;
+        }
+        
+        .footer a {
+          font-size: 14px;
         }
       }
     </style>
@@ -535,6 +674,21 @@
             </button>
           </div>
           <div id="resetMessage" style="margin-top: 15px; padding: 10px; border-radius: 8px; display: none;"></div>
+        </div>
+      </div>
+      
+      <!-- 🔥 PATIČKA -->
+      <div class="footer">
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="https://ember.cz" target="_blank" rel="noopener noreferrer">🔥 Ember PA</a>
+            <!-- Sem přidej další odkazy v budoucnu -->
+            <!-- <span class="footer-divider">|</span> -->
+            <!-- <a href="#" target="_blank">🎵 Spotify</a> -->
+          </div>
+          <div class="footer-info">
+            Vyvíjeno s ❤️ a 🍺
+          </div>
         </div>
       </div>
     </div>
@@ -1009,6 +1163,3 @@
     </script>
   </body>
 </html>
-
-
-
