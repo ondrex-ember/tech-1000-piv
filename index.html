@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <base target="_top">
@@ -20,9 +20,6 @@
     async
     >
     </script>
-      <!-- GA4 Server-Side Tracking -->
-      <!-- Client-side gtag.js removed - doesn't work in Apps Script iframes -->
-      <!-- GA4 tracking now handled by backend kod.gs via Measurement Protocol API -->
 
     <style>
       * {
@@ -519,6 +516,98 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     
     <script>
+      // ═══════════════════════════════════════════════════════════════
+      // 🌐 DUAL-ENVIRONMENT SUPPORT (Apps Script + GitHub Pages)
+      // ═══════════════════════════════════════════════════════════════
+      
+      /**
+       * !!! DŮLEŽITÉ: NASTAV DEPLOYMENT URL !!!
+       * Po nasazení Web App v Apps Script zkopíruj deployment URL sem.
+       * Formát: https://script.google.com/macros/s/DEPLOYMENT_ID/exec
+       */
+      const BACKEND_API_URL = 'https://script.google.com/macros/s/AKfycbzYvojvxHcJ7Qi8Mks-88lppjhiPE_J08jJsnKGrVAu4Y58vhEP3ySjwF6Mpoz6Oy0/exec';
+      
+      /**
+       * API wrapper - automaticky detekuje prostředí a volá správnou metodu
+       */
+      const api = {
+        // Detekce Apps Script prostředí
+        get isAppsScript() {
+          return typeof google !== 'undefined' && 
+                 google.script && 
+                 google.script.run;
+        },
+        
+        /**
+         * Univerzální backend caller - funguje v obou prostředích
+         * 
+         * @param {string} action - Název funkce k zavolání
+         * @param {object} data - Data k poslání
+         * @returns {Promise} - Response z backendu
+         */
+        async call(action, data = null) {
+          // Apps Script prostředí - přímý call
+          if (this.isAppsScript) {
+            return new Promise((resolve, reject) => {
+              google.script.run
+                .withSuccessHandler(resolve)
+                .withFailureHandler(reject)
+                [action](data);
+            });
+          }
+          
+          // GitHub Pages prostředí - JSONP
+          return this.callJSONP(action, data);
+        },
+        
+        /**
+         * JSONP caller pro GitHub Pages
+         * 
+         * Toto obchází CORS omezení pomocí <script> tagu.
+         * Script tag není omezen CORS policy, takže funguje cross-origin.
+         */
+        callJSONP(action, data) {
+          return new Promise((resolve, reject) => {
+            // Generuj unikátní callback name
+            const callbackName = 'jsonp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            // Vytvoř global callback funkci
+            window[callbackName] = function(response) {
+              // Cleanup
+              delete window[callbackName];
+              document.body.removeChild(script);
+              
+              // Resolve promise
+              resolve(response);
+            };
+            
+            // Build URL s parametry
+            const params = new URLSearchParams({
+              action: action,
+              data: JSON.stringify(data || {}),
+              callback: callbackName
+            });
+            
+            // Vytvoř script tag
+            const script = document.createElement('script');
+            script.src = `${BACKEND_API_URL}?${params}`;
+            script.onerror = () => {
+              // Cleanup on error
+              delete window[callbackName];
+              document.body.removeChild(script);
+              reject(new Error('API call failed'));
+            };
+            
+            // Přidej script do DOM (trigger request)
+            document.body.appendChild(script);
+          });
+        }
+      };
+      
+      // ═══════════════════════════════════════════════════════════════
+      // PŮVODNÍ KÓD APLIKACE (upraveno pro dual-environment)
+      // ═══════════════════════════════════════════════════════════════
+      
       let beerChart = null;
       let selectedBeerPrice = 14; // Výchozí cena (Desina)
       
@@ -538,64 +627,24 @@
         console.log('Vybrána cena piva:', price, 'Kč');
       }
       
-      // ═══════════════════════════════════════════════════════════════
-      // 📊 GA4 SERVER-SIDE TRACKING HELPERS
-      // ═══════════════════════════════════════════════════════════════
-      
-      // Získání nebo vytvoření user ID pro GA4
-      function getOrCreateUserId() {
-        let userId = localStorage.getItem('ga4_user_id');
-        if (!userId) {
-          // Vytvoř nový user ID
-          userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-          localStorage.setItem('ga4_user_id', userId);
-        }
-        return userId;
-      }
-      
-      // Helper pro tracking eventů do GA4 (přes backend)
-      function trackGA4Event(eventName, eventParams) {
-        try {
-          const userId = getOrCreateUserId();
-          
-          if (typeof google !== 'undefined' && google.script && google.script.run) {
-            google.script.run
-              .withSuccessHandler(function() {
-                console.log('✓ GA4:', eventName);
-              })
-              .withFailureHandler(function(error) {
-                console.warn('GA4 tracking failed:', error);
-              })
-              .trackEvent(userId, eventName, eventParams || {});
-          }
-        } catch(e) {
-          console.warn('GA4 error:', e);
-        }
-      }
-      
       // Načtení statistik při startu
       window.onload = function() {
         loadStatistics();
         loadSobrietyDays();
         
-        // 📊 GA4: Track page view
-        trackGA4Event('page_view', {
-          page_title: document.title,
-          page_location: window.location.href,
-          referrer: document.referrer || 'direct'
-        });
+        // Debug info
+        console.log('🔍 Environment:', api.isAppsScript ? 'Apps Script' : 'GitHub Pages');
+        console.log('🔍 Backend URL:', BACKEND_API_URL);
       };
       
       // Načtení dnů střízlivosti
-      function loadSobrietyDays() {
-        google.script.run
-          .withSuccessHandler(function(days) {
-            document.getElementById('sobrietyDays').textContent = days;
-          })
-          .withFailureHandler(function(error) {
-            console.error('Chyba při načítání dnů střízlivosti:', error);
-          })
-          .getSobrietyDays();
+      async function loadSobrietyDays() {
+        try {
+          const days = await api.call('getSobrietyDays');
+          document.getElementById('sobrietyDays').textContent = days;
+        } catch(error) {
+          console.error('Chyba při načítání dnů střízlivosti:', error);
+        }
       }
       
       // Zobrazení dialogu pro reset
@@ -603,11 +652,6 @@
         document.getElementById('resetDialog').style.display = 'flex';
         document.getElementById('resetPassword').value = '';
         document.getElementById('resetMessage').style.display = 'none';
-        
-        // 📊 GA4: Track dialog open
-        trackGA4Event('dialog_opened', {
-          dialog_type: 'sobriety_reset'
-        });
       }
       
       // Zavření dialogu
@@ -616,7 +660,7 @@
       }
       
       // Potvrzení resetu
-      function confirmReset() {
+      async function confirmReset() {
         const password = document.getElementById('resetPassword').value;
         const messageDiv = document.getElementById('resetMessage');
         
@@ -628,32 +672,31 @@
           return;
         }
         
-        google.script.run
-          .withSuccessHandler(function(response) {
-            messageDiv.style.display = 'block';
-            if (response.success) {
-              messageDiv.style.background = '#efe';
-              messageDiv.style.color = '#3c3';
-              messageDiv.textContent = response.message;
-              
-              // Aktualizovat počet dnů
-              document.getElementById('sobrietyDays').textContent = response.days;
-              
-              // Zavřít dialog po 2 sekundách
-              setTimeout(closeResetDialog, 2000);
-            } else {
-              messageDiv.style.background = '#fee';
-              messageDiv.style.color = '#c33';
-              messageDiv.textContent = response.message;
-            }
-          })
-          .withFailureHandler(function(error) {
-            messageDiv.style.display = 'block';
+        try {
+          const response = await api.call('resetSobriety', { password: password });
+          
+          messageDiv.style.display = 'block';
+          if (response.success) {
+            messageDiv.style.background = '#efe';
+            messageDiv.style.color = '#3c3';
+            messageDiv.textContent = response.message;
+            
+            // Aktualizovat počet dnů
+            document.getElementById('sobrietyDays').textContent = response.days;
+            
+            // Zavřít dialog po 2 sekundách
+            setTimeout(closeResetDialog, 2000);
+          } else {
             messageDiv.style.background = '#fee';
             messageDiv.style.color = '#c33';
-            messageDiv.textContent = '❌ Chyba: ' + error.message;
-          })
-          .resetSobriety(password);
+            messageDiv.textContent = response.message;
+          }
+        } catch(error) {
+          messageDiv.style.display = 'block';
+          messageDiv.style.background = '#fee';
+          messageDiv.style.color = '#c33';
+          messageDiv.textContent = '❌ Chyba: ' + error.message;
+        }
       }
       
       // Detekce zařízení a browseru
@@ -726,40 +769,41 @@
       }
       
       // Přidání piva
-      function addBeer() {
+      async function addBeer() {
         const button = document.querySelector('.beer-button');
         button.disabled = true;
         button.textContent = '⏳ Přidávám...';
         
         const trackingData = getDeviceInfo();
         
-        google.script.run
-          .withSuccessHandler(function(response) {
-            if (response.success) {
-              showMessage(response.message, 'success');
-              updateStatistics(response.stats);
-            } else {
-              showMessage(response.message, 'error');
-            }
-            button.disabled = false;
-            button.textContent = '🍺 Přidat pivo';
-          })
-          .withFailureHandler(function(error) {
-            showMessage('Chyba: ' + error.message, 'error');
-            button.disabled = false;
-            button.textContent = '🍺 Přidat pivo';
-          })
-          .addBeer(trackingData, selectedBeerPrice);
+        try {
+          const response = await api.call('addBeer', {
+            trackingData: trackingData,
+            beerPrice: selectedBeerPrice
+          });
+          
+          if (response.success) {
+            showMessage(response.message, 'success');
+            updateStatistics(response.stats);
+          } else {
+            showMessage(response.message, 'error');
+          }
+        } catch(error) {
+          showMessage('Chyba: ' + error.message, 'error');
+        } finally {
+          button.disabled = false;
+          button.textContent = '🍺 Přidat pivo';
+        }
       }
       
       // Načtení statistik
-      function loadStatistics() {
-        google.script.run
-          .withSuccessHandler(updateStatistics)
-          .withFailureHandler(function(error) {
-            console.error('Chyba při načítání statistik:', error);
-          })
-          .getStatistics();
+      async function loadStatistics() {
+        try {
+          const stats = await api.call('getStatistics');
+          updateStatistics(stats);
+        } catch(error) {
+          console.error('Chyba při načítání statistik:', error);
+        }
       }
       
       // Aktualizace statistik
